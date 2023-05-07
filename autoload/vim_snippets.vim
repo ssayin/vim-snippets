@@ -19,6 +19,23 @@ fun! vim_snippets#Filename(...)
   endif
 endf
 
+function! vim_snippets#DirnameFilenameExt(...)
+  let template = get(a:000, 0, "$1")
+  let fallback = get(a:000, 1, "")
+
+  let dirname = expand('%:p:h:t')
+  let basename = expand('%:t:r')
+  let fileext = expand('%:e')
+
+  if dirname == ''
+    return fallback
+  else
+    let result = substitute(template, '$1', dirname . '_' . basename . '_' . fileext, 'g')
+    return result
+  endif
+endfunction
+
+
 " original code:
 " fun! Filename(...)
 "     let filename = expand('%:t:r')
